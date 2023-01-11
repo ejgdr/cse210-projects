@@ -3,6 +3,20 @@ using System.Collections.Generic;
 
 class Program
 {
+    class ToSort : IComparer<int>
+    {
+        public int Compare(int x, int y)
+        {
+            if (x == 0 || y == 0)
+            {
+                return 0;
+            }
+
+            // CompareTo() method
+            return x.CompareTo(y);
+
+        }
+    }
     static void Main(string[] args)
     {
         Console.WriteLine("Enter a list of numbers, type 0 when finished.");
@@ -47,5 +61,28 @@ class Program
             }
         }
         Console.WriteLine($"The largest number is: {maximumNumber}");
+
+        // Minimum POSITIVE number in the list -stretch 1
+        int minimumNumber = -1;
+        foreach (int number in numbers)
+        {
+            if (number > 0)
+            {
+                minimumNumber = number;
+            }
+            if ((number > 0) && (number < minimumNumber))
+            {
+                minimumNumber = number;
+            }
+        }
+        Console.WriteLine($"The smallest positive number is: {minimumNumber}");
+
+        // Sorted list - stretch 2
+        ToSort sorting = new ToSort();
+        numbers.Sort(sorting);
+        foreach (int number in numbers)
+        {
+            Console.WriteLine(number);
+        }
     }
 }
